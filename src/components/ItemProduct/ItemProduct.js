@@ -39,7 +39,7 @@ const ItemProduct = ({data, action}) => {
                     <p>{title}</p>
 
                     <span onClick={addToCart}>$ {price}</span>
-                    <button onClick={addToCart}>AÑADIR AL CARRITO</button>
+                    <button >Ver más </button>
                 </div>
             </Link>
         </div> 
