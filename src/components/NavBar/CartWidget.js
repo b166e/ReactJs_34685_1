@@ -42,7 +42,7 @@ const CartWidget = () => {
                             <img src={`/assets/${product.image}`} alt="" />
                             <div className='cart-product__details'>
                                 <p>{product.title}</p>
-                           
+                      
                             </div>
                             <div className='cart-product__details'>
                                 <p>$ {product.price}</p>

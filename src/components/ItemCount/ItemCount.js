@@ -11,12 +11,21 @@ const ItemCount = ({setQuantitySelected, productData}) => {
     }
     
     const removeQuantity = () => {
-        setCountQuantity(countQuantity - 1)
+
+        if(countQuantity==1) {
+            setCountQuantity(1)
+        }else{
+            setCountQuantity(countQuantity - 1)
+        }
+        
+            
+                 
+        
     }
 
     const onAdd = () => {
-        console.log("Agregar al carrito: ", productData)
-        addProductToCart(productData)
+        console.log("Agregar al carrito: BRUNO ", productData, countQuantity)
+        addProductToCart(productData,countQuantity)
         setQuantitySelected(countQuantity)
     }
 

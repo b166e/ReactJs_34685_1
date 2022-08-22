@@ -15,12 +15,12 @@ const ItemDetail = ({data, setShowModal}) => {
                 />
             </div>
             <div className="item-detail-info">
-
+            
                 <h2>{data.title}</h2>
                 <p className="detail-info__price">$ {data.price}</p>
+        
            
-            
-                {console.log("quantitySelected: ", quantitySelected)}
+               
     {
         quantitySelected > 0 ? <button><Link to="/cart">TERMINAR COMPRA</Link></button> : <ItemCount setQuantitySelected={setQuantitySelected} productData={data}/>
     }

@@ -33,13 +33,13 @@ const ItemProduct = ({data, action}) => {
         <div className="item-product">
             <Link to={`/productos/${id}`}> 
                 <h1>{name}</h1>
- 
+
                 <img src={`/assets/${image}`} alt="Imagen producto" />
                 <div className='detail-product'>
                     <p>{title}</p>
 
                     <span onClick={addToCart}>$ {price}</span>
-                    <button >Ver más </button>
+                    <button onClick={addToCart}>AÑADIR AL CARRITO</button>
                 </div>
             </Link>
         </div> 
