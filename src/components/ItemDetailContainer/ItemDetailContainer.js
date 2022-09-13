@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import ItemDetail from "../ItemDetail/ItemDetail"
-import './ItemDetailContainer.scss'
-import products from "../../utils/products.mock"
+//import './ItemDetailContainer.scss'
+//import products from "../../utils/products.mock"
 import { useParams } from 'react-router-dom'
-import Modal from '../Modal/Modal'
+
 //Firebase
 import db from "../../firebaseConfig"
 import { doc, getDoc } from "firebase/firestore"
@@ -11,7 +11,7 @@ import { async } from "@firebase/util"
 
 const ItemDetailContainer = () => {
     const [productData, setProductData] = useState({})
-    const [showModal, setShowModal] = useState(false)
+    
     const { id } = useParams()
 
     useEffect( () => {
@@ -22,24 +22,50 @@ const ItemDetailContainer = () => {
     }, [id])
 
     const getProduct = async () => {
-        const docRef = doc(db, 'productos', id)
+        const docRef = doc(db, 'ProductosElit', id)
         const docSnapshot = await getDoc(docRef)
         let product = docSnapshot.data()
         product.id = docSnapshot.id
-      //  console.log('data con id:', product)
+        product.img = product.imagenes[0]
+        product.imgmin = product.miniaturas[0]
+        
+        product.precio = parseFloat(product.precio).toFixed(2);
+      
+
+
+       // product.product.imagenPrincipal = docSnapshot.product.imagenes[0]
+      //  console.log('data con id:', product.product.imagenes[0])
+      //  console.log('data con img:', docSnapshot.imagenes[0])
+   
+        console.log('data con img:', product)
+    
         return product
     }
 
+   
+    
+
+
+
     return(
-        <div className={`container-item-detail ${showModal ? 'overlay-black' : ''}`}>
-            <ItemDetail data={productData} setShowModal={setShowModal}/>
-            {showModal && (
-                <Modal title="Imagen Producto" close={setShowModal}>
-                    <img src={`/assets/${productData.image}`} />
-                </Modal>
-            )}
+        <div className={`container-item-detail `}>
+       
+       <h1>ItemDetailContainer: Filtra Productos</h1>
+            <ItemDetail data={productData} />
+        
         </div>
     )
 }
 
 export default ItemDetailContainer
+
+
+
+
+
+
+
+
+
+
+

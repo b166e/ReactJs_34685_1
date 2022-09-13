@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  font-family: 'Montserrat';
+
+
+}
+
+
+
+
+
+
+.primary {
+    @apply   bg-[#EC7616] text-white;
+  }
+  .primary_1 {
+    @apply   text-[#EC7616];
+  }
+
+  .secondary {
+
+    @apply bg-[#441151] text-white;
+}
+
+  .secondary_1 {
+
+    @apply text-[#441151];
+}
+
+
+.border-secondary-500 {
+  --tw-border-opacity: 1;
+  border-color: #441151;
+}
+
+.bg-secondary-500 {
+  --tw-bg-opacity: 1;
+  background-color: #441151;
+}
+
+.text-secondary-500 {
+  --tw-text-opacity: 1;
+  color:#441151;
+}

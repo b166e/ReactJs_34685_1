@@ -1,6 +1,72 @@
-export default function Example() {
+import { useEffect, useState ,Fragment} from "react";
+import { useParams } from "react-router-dom";
+import db from "../../firebaseConfig";
+
+import { Popover, Transition } from '@headlessui/react'
+
+
+
+
+
+import {
+  collection,
+  getDocs,
+  where,
+  query,
+} from "firebase/firestore";
+import ItemList from "../ItemList/ItemList";
+
+
+
+const solutions = [
+  { name: 'Blog', description: 'Learn about tips, product updates and company culture.', href: '#' },
+  {
+    name: 'Help Center',
+    description: 'Get all of your questions answered in our forums of contact support.',
+    href: '#',
+  },
+  ]
+
+
+const ItemDetailCategory = ({ section }) => {
+  const [listProducts, setListProducts] = useState([]);
+  const { categoryId } = useParams();
+
+  const getProducts = async () => {
+    const productCollection = query(
+      collection(db, "ProductosElit")
+    , where("categoria", "==", categoryId)
+    );
+ 
+
+    const productSnapshot = await getDocs(productCollection);
+    const productList = productSnapshot.docs.map((doc) => {
+      let product = doc.data();
+      product.id = doc.id;
+      product.img = product.imagenes[0];
+      product.imgmin = product.miniaturas[0];
+      product.precio = parseFloat(product.precio).toFixed(2);
+      const categoria = product.categoria
+
+      return product;
+    });
+    return productList;
+  };
+
+  useEffect(() => {
+    getProducts().then((res) => {
+      setListProducts(res);
+    });
+  }, [categoryId]);
+
+  
+
   return (
-    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+
+
+   
+
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="mt-4 flex w-full items-center justify-between gap-2">
         <ol
           role="list"
@@ -128,7 +194,7 @@ export default function Example() {
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-4">
         <div class="hidden pt-4 md:col-span-1 lg:block">
           <h3 class=" text-2xl font-semibold text-primary-500">
-            All In One
+          {section}
           </h3>
 
           <div class="mt-4 text-neutral-700"></div>
@@ -166,10 +232,30 @@ export default function Example() {
           <div class="mt-2 mb-4 text-neutral-700"></div>
         </div>
         <div class="md:col-span-3">
-          <div class="grid grid-cols-2 gap-4 py-5 md:grid-cols-3 lg:grid-cols-4"></div>
+          <div class="grid grid-cols-2 gap-4 py-5 md:grid-cols-3 lg:grid-cols-4">
+
+          <ItemList dataProducts={listProducts} />
+          </div>
         
         </div>
       </div>
+    
+
+  
+
+
+
+
+
     </div>
+
+    
+
+    
+
+
   );
-}
+};
+
+export default ItemDetailCategory;
+
